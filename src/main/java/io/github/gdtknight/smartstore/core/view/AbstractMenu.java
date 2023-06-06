@@ -1,9 +1,9 @@
 package io.github.gdtknight.smartstore.core.view;
 
-import static io.github.gdtknight.smartstore.exceptions.StoreErrorCode.INVALID_FORMAT;
-import static io.github.gdtknight.smartstore.exceptions.StoreErrorCode.INVALID_INPUT;
+import static io.github.gdtknight.smartstore.exceptions.AppErrorCode.INVALID_FORMAT;
+import static io.github.gdtknight.smartstore.exceptions.AppErrorCode.INVALID_INPUT;
 
-import io.github.gdtknight.smartstore.exceptions.StoreException;
+import io.github.gdtknight.smartstore.exceptions.AppException;
 import io.github.gdtknight.smartstore.utils.ScannerUtility;
 
 /**
@@ -36,17 +36,17 @@ public abstract class AbstractMenu {
    *
    * @return 입력된 메뉴 번호
    */
-  int selectMenuNumber() throws StoreException {
+  int selectMenuNumber() throws AppException {
     System.out.print("Choose One: ");
 
     int selection = ScannerUtility.getIntegerInputSafely();
 
     if (selection == -1) {
-      throw new StoreException(INVALID_FORMAT);
+      throw new AppException(INVALID_FORMAT);
     }
 
     if (selection < 1 || selection > items.length) {
-      throw new StoreException(INVALID_INPUT);
+      throw new AppException(INVALID_INPUT);
     }
 
     return selection;

@@ -2,13 +2,13 @@ package io.github.gdtknight.smartstore.core.view;
 
 import static io.github.gdtknight.smartstore.enums.AppMessages.INPUT_CUSTOMER_GROUP_MSG;
 import static io.github.gdtknight.smartstore.enums.AppMessages.PRESS_END_MSG;
-import static io.github.gdtknight.smartstore.exceptions.StoreErrorCode.*;
+import static io.github.gdtknight.smartstore.exceptions.AppErrorCode.*;
 import static io.github.gdtknight.smartstore.utils.StoreUtility.convertInputStrToCustomerType;
 
 import io.github.gdtknight.smartstore.core.domain.CustomerGroupDto;
 import io.github.gdtknight.smartstore.core.service.CustomerGroupService;
 import io.github.gdtknight.smartstore.enums.CustomerType;
-import io.github.gdtknight.smartstore.exceptions.StoreException;
+import io.github.gdtknight.smartstore.exceptions.AppException;
 import io.github.gdtknight.smartstore.utils.ScannerUtility;
 
 /**
@@ -48,7 +48,7 @@ public class ParameterMenu extends AbstractMenu {
             break loop;
           }
         }
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
       }
     }
@@ -74,7 +74,7 @@ public class ParameterMenu extends AbstractMenu {
     while (true) {
       CustomerGroupDto customerGroupDto = customerGroupService.find(inputCustomerType());
 
-      if (customerGroupDto.parameter() == null) throw new StoreException(NO_PARAMETER);
+      if (customerGroupDto.parameter() == null) throw new AppException(NO_PARAMETER);
 
       customerGroupDto =
           customerGroupService.updateGroupParameter(
@@ -98,12 +98,12 @@ public class ParameterMenu extends AbstractMenu {
       System.out.println(INPUT_CUSTOMER_GROUP_MSG + "\n" + PRESS_END_MSG);
       String input = ScannerUtility.getInput().toUpperCase();
 
-      if ("end".equalsIgnoreCase(input)) throw new StoreException(INPUT_END);
+      if ("end".equalsIgnoreCase(input)) throw new AppException(INPUT_END);
 
       try {
-        if ("".equals(input)) throw new StoreException(NULL_INPUT);
+        if ("".equals(input)) throw new AppException(NULL_INPUT);
         return convertInputStrToCustomerType(input);
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
       }
     }

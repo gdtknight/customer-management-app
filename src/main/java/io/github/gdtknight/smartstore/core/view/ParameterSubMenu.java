@@ -1,11 +1,11 @@
 package io.github.gdtknight.smartstore.core.view;
 
 import static io.github.gdtknight.smartstore.enums.AppMessages.*;
-import static io.github.gdtknight.smartstore.exceptions.StoreErrorCode.INPUT_END;
+import static io.github.gdtknight.smartstore.exceptions.AppErrorCode.INPUT_END;
 
 import io.github.gdtknight.smartstore.core.domain.Parameter;
-import io.github.gdtknight.smartstore.exceptions.StoreErrorCode;
-import io.github.gdtknight.smartstore.exceptions.StoreException;
+import io.github.gdtknight.smartstore.exceptions.AppErrorCode;
+import io.github.gdtknight.smartstore.exceptions.AppException;
 import io.github.gdtknight.smartstore.utils.ScannerUtility;
 
 /**
@@ -50,7 +50,7 @@ public class ParameterSubMenu extends AbstractMenu {
             return new Parameter(minimumSpentTime, minimumPayAmount);
           }
         }
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
       }
     }
@@ -65,12 +65,12 @@ public class ParameterSubMenu extends AbstractMenu {
 
       String input = ScannerUtility.getInput();
 
-      if ("end".equals(input)) throw new StoreException(INPUT_END);
+      if ("end".equals(input)) throw new AppException(INPUT_END);
 
       try {
         return Integer.parseInt(input);
       } catch (NumberFormatException e) {
-        System.out.println(StoreErrorCode.INVALID_FORMAT.getMessage());
+        System.out.println(AppErrorCode.INVALID_FORMAT.getMessage());
       }
     }
   }
@@ -84,12 +84,12 @@ public class ParameterSubMenu extends AbstractMenu {
 
       String input = ScannerUtility.getInput();
 
-      if ("end".equals(input)) throw new StoreException(INPUT_END);
+      if ("end".equals(input)) throw new AppException(INPUT_END);
 
       try {
         return Integer.parseInt(input);
       } catch (NumberFormatException e) {
-        System.out.println(StoreErrorCode.INVALID_FORMAT.getMessage());
+        System.out.println(AppErrorCode.INVALID_FORMAT.getMessage());
       }
     }
   }

@@ -1,11 +1,11 @@
 package io.github.gdtknight.smartstore.core.view;
 
 import static io.github.gdtknight.smartstore.enums.AppMessages.*;
-import static io.github.gdtknight.smartstore.exceptions.StoreErrorCode.*;
+import static io.github.gdtknight.smartstore.exceptions.AppErrorCode.*;
 
 import io.github.gdtknight.smartstore.core.domain.CustomerDto;
-import io.github.gdtknight.smartstore.exceptions.StoreErrorCode;
-import io.github.gdtknight.smartstore.exceptions.StoreException;
+import io.github.gdtknight.smartstore.exceptions.AppErrorCode;
+import io.github.gdtknight.smartstore.exceptions.AppException;
 import io.github.gdtknight.smartstore.utils.ScannerUtility;
 
 /**
@@ -52,7 +52,7 @@ public class CustomerSubMenu extends AbstractMenu {
             break loop;
           }
         }
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
         if (e.getErrorCode() == INPUT_END) break;
       }
@@ -63,56 +63,56 @@ public class CustomerSubMenu extends AbstractMenu {
 
   /**
    * @return 입력 받은 고객 이름
-   * @throws StoreException 종료 선택시
+   * @throws AppException 종료 선택시
    */
-  private String inputCustomerName() throws StoreException {
+  private String inputCustomerName() throws AppException {
     System.out.println(INPUT_CUSTOMER_NAME + "\n" + PRESS_END_MSG);
     String input = ScannerUtility.getInput();
-    if ("end".equalsIgnoreCase(input)) throw new StoreException(INPUT_END);
+    if ("end".equalsIgnoreCase(input)) throw new AppException(INPUT_END);
     return input;
   }
 
   /**
    * @return 입력 받은 고객 ID
-   * @throws StoreException 종료 선택시
+   * @throws AppException 종료 선택시
    */
-  private String inputCustomerId() throws StoreException {
+  private String inputCustomerId() throws AppException {
     System.out.println(INPUT_CUSTOMER_ID + "\n" + PRESS_END_MSG);
     String input = ScannerUtility.getInput();
-    if ("end".equalsIgnoreCase(input)) throw new StoreException(INPUT_END);
+    if ("end".equalsIgnoreCase(input)) throw new AppException(INPUT_END);
     return input;
   }
 
   /**
    * @return 입력 받은 고객의 이용 시간
-   * @throws StoreException 종료 선택시
+   * @throws AppException 종료 선택시
    */
-  private int inputCustomerSpentTime() throws StoreException {
+  private int inputCustomerSpentTime() throws AppException {
     while (true) {
       System.out.println(INPUT_CUSTOMER_SPENT_TIME + "\n" + PRESS_END_MSG);
       String input = ScannerUtility.getInput();
-      if ("end".equalsIgnoreCase(input)) throw new StoreException(INPUT_END);
+      if ("end".equalsIgnoreCase(input)) throw new AppException(INPUT_END);
       try {
         return Integer.parseInt(input);
       } catch (NumberFormatException e) {
-        System.out.println(StoreErrorCode.INVALID_FORMAT.getMessage());
+        System.out.println(AppErrorCode.INVALID_FORMAT.getMessage());
       }
     }
   }
 
   /**
    * @return 입력 받은 고객의 결제 금액
-   * @throws StoreException 종료 선택시
+   * @throws AppException 종료 선택시
    */
-  private int inputCustomerPayAmount() throws StoreException {
+  private int inputCustomerPayAmount() throws AppException {
     while (true) {
       System.out.println(INPUT_CUSTOMER_PAY_AMOUNT + "\n" + PRESS_END_MSG);
       String input = ScannerUtility.getInput();
-      if ("end".equalsIgnoreCase(input)) throw new StoreException(INPUT_END);
+      if ("end".equalsIgnoreCase(input)) throw new AppException(INPUT_END);
       try {
         return Integer.parseInt(input);
       } catch (NumberFormatException e) {
-        System.out.println(StoreErrorCode.INVALID_FORMAT.getMessage());
+        System.out.println(AppErrorCode.INVALID_FORMAT.getMessage());
       }
     }
   }

@@ -3,7 +3,7 @@ package io.github.gdtknight.smartstore.core.view;
 import static io.github.gdtknight.smartstore.enums.AppMessages.INPUT_SORT_ORDER;
 import static io.github.gdtknight.smartstore.enums.AppMessages.PRESS_END_MSG;
 import static io.github.gdtknight.smartstore.enums.SortBy.*;
-import static io.github.gdtknight.smartstore.exceptions.StoreErrorCode.INPUT_END;
+import static io.github.gdtknight.smartstore.exceptions.AppErrorCode.INPUT_END;
 import static io.github.gdtknight.smartstore.utils.StoreUtility.convertInputStrToSortOrder;
 
 import io.github.gdtknight.smartstore.core.domain.CustomerDto;
@@ -12,7 +12,7 @@ import io.github.gdtknight.smartstore.core.service.CustomerGroupService;
 import io.github.gdtknight.smartstore.core.service.CustomerService;
 import io.github.gdtknight.smartstore.enums.SortBy;
 import io.github.gdtknight.smartstore.enums.SortOrder;
-import io.github.gdtknight.smartstore.exceptions.StoreException;
+import io.github.gdtknight.smartstore.exceptions.AppException;
 import io.github.gdtknight.smartstore.utils.ScannerUtility;
 
 /**
@@ -65,7 +65,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
             break loop;
           }
         }
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
       }
     }
@@ -91,7 +91,7 @@ public class ClassificationSummaryMenu extends AbstractMenu {
       try {
         lastRequestedSortOrder = inputSortOrder();
         displaySummary();
-      } catch (StoreException e) {
+      } catch (AppException e) {
         if (e.getErrorCode() == INPUT_END) break;
         System.out.println(e.getMessage());
       }
@@ -117,18 +117,18 @@ public class ClassificationSummaryMenu extends AbstractMenu {
 
   /**
    * @return 정렬 방향 (오름차순, 내림차순)
-   * @throws StoreException 종료 선택시
+   * @throws AppException 종료 선택시
    */
-  private SortOrder inputSortOrder() throws StoreException {
+  private SortOrder inputSortOrder() throws AppException {
     while (true) {
       System.out.println(INPUT_SORT_ORDER + "\n" + PRESS_END_MSG);
       try {
         String input = ScannerUtility.getInput();
-        if ("end".equalsIgnoreCase(input)) throw new StoreException(INPUT_END);
+        if ("end".equalsIgnoreCase(input)) throw new AppException(INPUT_END);
         return convertInputStrToSortOrder(input);
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
-        if (e.getErrorCode() == INPUT_END) throw new StoreException(INPUT_END);
+        if (e.getErrorCode() == INPUT_END) throw new AppException(INPUT_END);
       }
     }
   }

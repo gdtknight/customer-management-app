@@ -2,13 +2,13 @@ package io.github.gdtknight.smartstore.core.view;
 
 import static io.github.gdtknight.smartstore.enums.AppMessages.INPUT_NUMBER_OF_CUSTOMERS;
 import static io.github.gdtknight.smartstore.enums.AppMessages.PRESS_END_MSG;
-import static io.github.gdtknight.smartstore.exceptions.StoreErrorCode.*;
+import static io.github.gdtknight.smartstore.exceptions.AppErrorCode.*;
 import static io.github.gdtknight.smartstore.utils.ScannerUtility.getInput;
 import static io.github.gdtknight.smartstore.utils.ScannerUtility.getIntegerInputSafely;
 
 import io.github.gdtknight.smartstore.core.domain.CustomerDto;
 import io.github.gdtknight.smartstore.core.service.CustomerService;
-import io.github.gdtknight.smartstore.exceptions.StoreException;
+import io.github.gdtknight.smartstore.exceptions.AppException;
 
 /**
  * 고객 정보 관리 메뉴
@@ -57,7 +57,7 @@ public class CustomerMenu extends AbstractMenu {
             break loop;
           }
         }
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
       }
     }
@@ -92,13 +92,13 @@ public class CustomerMenu extends AbstractMenu {
   /**
    * 현재 등록된 고객 명단 출력
    *
-   * @throws StoreException 등록된 고객 정보가 없음
+   * @throws AppException 등록된 고객 정보가 없음
    */
-  private void displayCustomerInfo() throws StoreException {
+  private void displayCustomerInfo() throws AppException {
     // No. 1 => Customer{userId='TEST123', name='TEST', spentTime=null, totalPay=null, group=null}
     dtoCache = customerService.findAll();
     if (dtoCache.length == 0) {
-      throw new StoreException(NO_CUSTOMER);
+      throw new AppException(NO_CUSTOMER);
     }
 
     System.out.println("\n======= Customer Info. =======");
@@ -109,22 +109,22 @@ public class CustomerMenu extends AbstractMenu {
 
   /**
    * @return 새로 등록할 고객수
-   * @throws StoreException 종료 선택시
+   * @throws AppException 종료 선택시
    */
-  private int inputNumberOfCustomers() throws StoreException {
+  private int inputNumberOfCustomers() throws AppException {
     while (true) {
       System.out.println(INPUT_NUMBER_OF_CUSTOMERS + "\n" + PRESS_END_MSG);
       String input = getInput();
-      if ("end".equalsIgnoreCase(input)) throw new StoreException(INPUT_END);
+      if ("end".equalsIgnoreCase(input)) throw new AppException(INPUT_END);
       try {
         int numberOfCustomers = Integer.parseInt(input);
         if (numberOfCustomers == -1) {
-          throw new StoreException(INVALID_FORMAT);
+          throw new AppException(INVALID_FORMAT);
         }
         return numberOfCustomers;
       } catch (NumberFormatException e) {
         System.out.println(INVALID_FORMAT.getMessage());
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
       }
     }
@@ -139,10 +139,10 @@ public class CustomerMenu extends AbstractMenu {
       try {
         int customerNumber = getIntegerInputSafely();
         if (customerNumber < 1 || customerNumber > customerService.getNumberOfCustomers()) {
-          throw new StoreException(INVALID_FORMAT);
+          throw new AppException(INVALID_FORMAT);
         }
         return customerNumber;
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
       }
     }

@@ -1,6 +1,6 @@
 package io.github.gdtknight.smartstore.core.view;
 
-import io.github.gdtknight.smartstore.exceptions.StoreException;
+import io.github.gdtknight.smartstore.exceptions.AppException;
 
 /**
  * 메인 메뉴 화면
@@ -43,7 +43,7 @@ public class MainMenu extends AbstractMenu {
             break loop;
           }
         }
-      } catch (StoreException e) {
+      } catch (AppException e) {
         System.out.println(e.getMessage());
       }
     }
