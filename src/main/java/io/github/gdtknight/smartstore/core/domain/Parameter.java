@@ -25,8 +25,10 @@ public class Parameter {
   }
 
   public void update(Parameter parameter) {
-    if (parameter.getMinSpentTime() != null) this.minSpentTime = parameter.getMinSpentTime();
-    if (parameter.getMinPayAmount() != null) this.minPayAmount = parameter.getMinPayAmount();
+    if (parameter != null) {
+      if (parameter.getMinSpentTime() != null) this.minSpentTime = parameter.getMinSpentTime();
+      if (parameter.getMinPayAmount() != null) this.minPayAmount = parameter.getMinPayAmount();
+    }
   }
 
   @Override

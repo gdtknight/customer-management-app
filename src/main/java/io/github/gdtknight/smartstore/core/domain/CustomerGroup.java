@@ -29,7 +29,7 @@ public class CustomerGroup {
   }
 
   public void setParameter(Parameter parameter) {
-    if (this.parameter == null) this.parameter = parameter;
+    if (this.parameter == null || parameter == null) this.parameter = parameter;
     else this.parameter.update(parameter);
   }
 }
