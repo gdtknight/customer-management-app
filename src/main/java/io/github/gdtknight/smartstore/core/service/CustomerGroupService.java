@@ -34,18 +34,11 @@ public class CustomerGroupService {
    *
    * @param customerGroupDto 고객 그룹 DTO
    * @param parameter 분류 기준
-   * @return 설정이 완료된 고객 그룹
    */
-  public CustomerGroupDto updateGroupParameter(
-      CustomerGroupDto customerGroupDto, Parameter parameter) {
-
+  public void updateGroup(CustomerGroupDto customerGroupDto, Parameter parameter) {
     customerGroupDto.parameter().update(parameter);
-
     customerGroupManager.save(CustomerGroupDto.toEntity(customerGroupDto));
-
     customerService.classifyAllCustomers();
-
-    return customerGroupDto;
   }
 
   /**

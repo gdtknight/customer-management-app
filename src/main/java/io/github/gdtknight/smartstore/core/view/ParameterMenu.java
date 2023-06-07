@@ -42,7 +42,7 @@ public class ParameterMenu extends AbstractMenu {
       try {
         switch (parameterMenu.selectMenuNumber()) {
           case 1 -> initParameter(); // 기준 초기 설정
-          case 2 -> showParameter(); // 기준 출력
+          case 2 -> displayParameter(); // 기준 출력
           case 3 -> updateParameter(); // 기준 수정
           case 4 -> { // 이전 메뉴
             break loop;
@@ -56,37 +56,35 @@ public class ParameterMenu extends AbstractMenu {
 
   private void initParameter() {
     while (true) {
-      CustomerGroupDto customerGroupDto = customerGroupService.find(inputCustomerType());
+      CustomerType customerType = inputCustomerType();
+      CustomerGroupDto customerGroupDto = customerGroupService.find(customerType);
 
-      if (customerGroupDto.parameter() != null) {
-        System.out.println(GROUP_ALREADY_SET.getMessage());
-      } else {
-        customerGroupDto =
-            customerGroupService.updateGroupParameter(
-                customerGroupDto, parameterSubMenu.inputParameter());
-      }
+      if (customerGroupDto.parameter() != null) System.out.println(GROUP_ALREADY_SET.getMessage());
+      else customerGroupService.updateGroup(customerGroupDto, parameterSubMenu.inputParameter());
 
-      System.out.println(customerGroupDto);
+      displayCustomerGroup(customerType);
     }
   }
 
   private void updateParameter() {
     while (true) {
-      CustomerGroupDto customerGroupDto = customerGroupService.find(inputCustomerType());
+      CustomerType customerType = inputCustomerType();
+      CustomerGroupDto customerGroupDto = customerGroupService.find(customerType);
 
       if (customerGroupDto.parameter() == null) throw new AppException(NO_PARAMETER);
+      else customerGroupService.updateGroup(customerGroupDto, parameterSubMenu.inputParameter());
 
-      customerGroupDto =
-          customerGroupService.updateGroupParameter(
-              customerGroupDto, parameterSubMenu.inputParameter());
-
-      System.out.println(customerGroupDto);
+      displayCustomerGroup(customerType);
     }
   }
 
-  private void showParameter() {
+  private void displayCustomerGroup(CustomerType customerType) {
+    System.out.println(customerGroupService.find(customerType));
+  }
+
+  private void displayParameter() {
     while (true) {
-      System.out.println(customerGroupService.find(inputCustomerType()));
+      displayCustomerGroup(inputCustomerType());
     }
   }
 
