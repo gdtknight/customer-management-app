@@ -5,7 +5,6 @@ import static io.github.gdtknight.smartstore.enums.AppMessages.PRESS_END_MSG;
 import static io.github.gdtknight.smartstore.exceptions.AppErrorCode.*;
 import static io.github.gdtknight.smartstore.utils.StoreUtility.convertInputStrToCustomerType;
 
-import io.github.gdtknight.smartstore.core.domain.CustomerGroupDto;
 import io.github.gdtknight.smartstore.core.service.CustomerGroupService;
 import io.github.gdtknight.smartstore.enums.CustomerType;
 import io.github.gdtknight.smartstore.exceptions.AppException;
@@ -57,10 +56,10 @@ public class ParameterMenu extends AbstractMenu {
   private void initParameter() {
     while (true) {
       CustomerType customerType = inputCustomerType();
-      CustomerGroupDto customerGroupDto = customerGroupService.find(customerType);
 
-      if (customerGroupDto.parameter() != null) System.out.println(GROUP_ALREADY_SET.getMessage());
-      else customerGroupService.updateGroup(customerGroupDto, parameterSubMenu.inputParameter());
+      if (customerGroupService.find(customerType).parameter() != null)
+        System.out.println(GROUP_ALREADY_SET.getMessage());
+      else customerGroupService.updateGroup(customerType, parameterSubMenu.inputParameter());
 
       displayCustomerGroup(customerType);
     }
@@ -69,10 +68,10 @@ public class ParameterMenu extends AbstractMenu {
   private void updateParameter() {
     while (true) {
       CustomerType customerType = inputCustomerType();
-      CustomerGroupDto customerGroupDto = customerGroupService.find(customerType);
 
-      if (customerGroupDto.parameter() == null) throw new AppException(NO_PARAMETER);
-      else customerGroupService.updateGroup(customerGroupDto, parameterSubMenu.inputParameter());
+      if (customerGroupService.find(customerType).parameter() == null)
+        throw new AppException(NO_PARAMETER);
+      else customerGroupService.updateGroup(customerType, parameterSubMenu.inputParameter());
 
       displayCustomerGroup(customerType);
     }

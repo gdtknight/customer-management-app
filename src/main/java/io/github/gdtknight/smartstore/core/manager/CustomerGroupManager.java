@@ -1,6 +1,7 @@
 package io.github.gdtknight.smartstore.core.manager;
 
 import io.github.gdtknight.smartstore.core.domain.CustomerGroup;
+import io.github.gdtknight.smartstore.core.domain.Parameter;
 import io.github.gdtknight.smartstore.enums.CustomerType;
 import java.util.Arrays;
 
@@ -38,6 +39,18 @@ public class CustomerGroupManager {
     Arrays.stream(customerGroups)
         .filter(group -> group.getCustomerType() == customerGroup.getCustomerType())
         .forEach(group -> group.setParameter(customerGroup.getParameter()));
+  }
+
+  /**
+   * 고객 그룹 저장
+   *
+   * @param customerType 고객 유형
+   * @param parameter 분류 기준
+   */
+  public void save(CustomerType customerType, Parameter parameter) {
+    Arrays.stream(customerGroups)
+        .filter(group -> group.getCustomerType() == customerType)
+        .forEach(group -> group.setParameter(parameter));
   }
 
   /**

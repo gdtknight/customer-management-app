@@ -32,12 +32,11 @@ public class CustomerGroupService {
   /**
    * 그룹 파라미터 설정 후 저장
    *
-   * @param customerGroupDto 고객 그룹 DTO
+   * @param customerType 고객 유형
    * @param parameter 분류 기준
    */
-  public void updateGroup(CustomerGroupDto customerGroupDto, Parameter parameter) {
-    customerGroupDto.parameter().update(parameter);
-    customerGroupManager.save(CustomerGroupDto.toEntity(customerGroupDto));
+  public void updateGroup(CustomerType customerType, Parameter parameter) {
+    customerGroupManager.save(customerType, parameter);
     customerService.classifyAllCustomers();
   }
 
