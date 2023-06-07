@@ -36,6 +36,7 @@ public class CustomerGroupService {
    * @param parameter 분류 기준
    */
   public void updateGroup(CustomerType customerType, Parameter parameter) {
+    if (customerType == null || parameter == null) return;
     customerGroupManager.save(customerType, parameter);
     customerService.classifyAllCustomers();
   }
